@@ -1,0 +1,30 @@
+#primero {
+    background-color: #ddd;
+    border: 1px solid gray;
+    box-shadow: 5px 10px 18px #888888;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+#segundo {
+    margin-top: 2em;
+    padding: 1em;
+}
+
+.col {
+    margin: 0.5em;
+    width: 100%;
+}
+
+.centro {
+    text-align: center;
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    .form-control {
+        width: 100%;
+    }
+}
