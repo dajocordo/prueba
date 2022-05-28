@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
@@ -15,16 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+//Route::get('/', function () { return view('welcome'); });
+Route::get('/', [ EmpleadosController::class, "index" ]);
+Route::get('/new', [ EmpleadosController::class, "new" ]);
+Route::get('/look', [ EmpleadosController::class, "index" ]);
+Route::get('/viewEmp/{id}', [ EmpleadosController::class, "show" ]);
+Route::get('/editEmp/{id}', [ EmpleadosController::class, "edit" ]);
+Route::get('/deleteEmp/{id}', [ EmpleadosController::class, "delete" ]);
+Route::get('/nuevoEmpleado', [ EmpleadosController::class, "create_error" ]);
+Route::get('/del', [ EmpleadosController::class, "create_error" ]);
+Route::post('/look', [ EmpleadosController::class, "search" ]);
+Route::post('/update', [ EmpleadosController::class, "update" ]);
+Route::post('/nuevoEmpleado', [ EmpleadosController::class, "create" ]);
+Route::post('/del', [ EmpleadosController::class, "destroy" ]);
 
-// s
 
-Route::get('/', [UsersControllers::class, 'index']);
-Route::post('/look', [UsersControllers::class, 'search']);
-Route::get('/new', [UsersControllers::class, 'neww']);
-Route::post('/nuevo', [UsersControllers::class, 'create']);
-Route::post('/update', [UsersControllers::class, 's']);
-Route::get('/view/{id}', [UsersControllers::class, 'show']);
-Route::get('/del/{id}', [UsersControllers::class, 'destroy']);
+
+Route::get('/d', [ DepartamentosController::class, "index" ]);
+Route::post('/nuevoDepartamento', [ DepartamentosController::class, "create" ]);
+
+
+
+
