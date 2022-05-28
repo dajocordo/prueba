@@ -18,20 +18,29 @@
 				<div class="row">
 					<div class="col">
                         <label name="lbl_name">Nombre</label>
-						<input type="text" class="form-control" name="txt_name"><br>
+						<input type="text" class="form-control" name="txt_name" required><br>
 					</div>
 					<div class="col">
                     <label name="lbl_name">Apellido</label>
-						<input type="text" class="form-control" name="txt_apellido"><br>
+						<input type="text" class="form-control" name="txt_apellido" required><br>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">
-						<label name="lbl_name">Telefono</label>
-						<input type="number" class="form-control" name="txt_telefono"><br>
+						<label name="lbl_name">Correo</label>
+						<input type="email" class="form-control" name="txt_correo" required><br>
 					</div>
 					<div class="col">
-						<input type="submit" class="btn btn-primary form-control" name="btn_enviar"><br>
+						<label name="lbl_name">Telefono</label>
+						<input type="number" class="form-control" name="txt_telefono" required><br>
+					</div>
+                </div>
+                <div class="row">
+					<div class="col">
+						<input type="submit" class="btn btn-primary form-control" name="btn_enviar" value="Crear"><br>
+                    </div>
+                    <div class="col">
+                        <a href="/" class="btn btn-secondary form-control" name="btn_crear">Regresar</a><br>
 					</div>
 				</div>
 			</form>

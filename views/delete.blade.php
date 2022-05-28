@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Ver Empleado</title>
+    <title>Eliminar Empleado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
@@ -12,16 +12,17 @@
 
 <body>
     <div class="container">
-        <!-- Modal "Ver Empleado" -->
+        <!-- Modal "Eliminar Empleado" -->
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="delEmpleadoLabel"><img src="/img/viewEmp.png"> Ver Empleado</h5>
+                        <h5 class="modal-title" id="delEmpleadoLabel"><img src="/img/del.png"> Eliminar Empleado</h5>
                         <a href="/" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a><br>
 
                     </div>
-                    <form name="frm_view_empleado" action="{{url('')}}" method="post">
+                    <form name="frm_delete_empleado" action="{{url('/del')}}" method="post">
                         <div class="modal-body">
+                            <p>¿Está seguro que desea eliminar este empleado?</p>
                             
                             @csrf
                             <input type="hidden" name="id" value="@php echo $id; @endphp">
@@ -54,6 +55,7 @@
                         </div>
                         <div class="modal-footer">
                             <a href="/" class="btn btn-secondary">Regresar</a><br>
+                            <input type="submit" class="btn btn-danger" name="btn_del_empleado" value="Eliminar">
                         </div>
                     </form>
                 </div>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Empleados</title>
+    <title>CRUD DB</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
@@ -28,32 +28,14 @@
                     </div>
                     <div class="col">
                         <label name="lbl_telefono">Telefono</label>
-                        <input type="number" class="form-control" name="buscar_telefono" maxlength="10">
+                        <input type="text" class="form-control" name="buscar_telefono" maxlength="10">
                     </div>
                 </div>
                 <div class="row">
+                    <!-- <div class="col">
+						<input type="text" class="form-control" name="txt_name"><br>
+					</div> -->
                     <div class="col">
-                        <label name="lbl_correo">Correo</label>
-                        <input type="email" class="form-control" name="buscar_correo" maxlength="50">
-                    </div>
-                    <div class="col">
-                        @php if (isset($departamentosTable)) { @endphp
-                            <label name="lbl_departamento">Departamento</label>
-                            <select class="form-control" name="buscar_departamento">
-                                @php foreach ($departamentosTable as $info) {
-                                    $id = $info->idDepartamento;
-                                    $name = $info->NomDepartamento;
-                                @endphp
-                                <option name="@php echo $id; @endphp" value="@php echo $id; @endphp">@php echo $name; @endphp</option>
-                                @php } @endphp
-                                
-                            </select>
-                            @php } else {
-                                 echo "";
-                            } @endphp
-                    </div>
-                    <div class="col">
-                        <label name="lbl_boton">-</label>
                         <input type="submit" class="btn btn-success form-control" name="btn_buscar" value="Buscar">
                     </div>
                 </div>
@@ -62,15 +44,7 @@
         <div class="row" id="DataTable">
 
             <h2 class="centro">Empleados</h2><br>
-            <span class="row">
-                <div class="col-11">
-                    <p>Para crear un nuevo empleado, favor dar clic aquí</p>
-                </div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoEmpleado">+</button>
-                </div>
-            </span>
-
+            <p>Para crear un nuevo empleado, dar clic <a href="new">aquí</a></p><br>
             @php if (isset($empleadosTable) == true) { @endphp
             <table id="example" class="table table-bordered table-hover" style="width:100%">
                 <thead>
@@ -79,7 +53,6 @@
                     <th>Apellido</th>
                     <th>Correo</th>
                     <th>Telefono</th>
-                    <th>Departamento</th>
                     <th>Opciones</th>
                 </thead>
                 <tbody>
@@ -90,12 +63,6 @@
                     $apellido = $info->ApellEmp;
                     $correo = $info->Correo;
                     $telefono = $info->Telefono;
-                    $dpto = $info->idDepartamento;
-                    $departamentoTable = DB::table("departamentos")->where("idDepartamento", $dpto)->get();
-                    foreach ($departamentoTable as $infoDep) {
-                        $idDep = $infoDep->idDepartamento;
-                        $nameDep = $infoDep->NomDepartamento;
-                    }
                     @endphp
                     <tr>
                         <td>@php echo $id; @endphp</td>
@@ -103,12 +70,11 @@
                         <td>@php echo $apellido; @endphp</td>
                         <td>@php echo $correo; @endphp</td>
                         <td>@php echo $telefono; @endphp</td>
-                        <td>@php echo $nameDep; @endphp</td>
                         <td><a style="margin-right:0.25em" class="btn btn-info"
-                                href="/editEmp/@php echo $id; @endphp" title="Editar"><img src="img/edit.png"></a>
-                            <a class="btn btn-warning" href="/viewEmp/@php echo $id; @endphp" target="_blank"
+                                href="/users/@php echo $id; @endphp/edit" title="Editar"><img src="img/edit.png"></a>
+                            <a class="btn btn-warning" href="/view/@php echo $id; @endphp" target="_blank"
                                 title="Ver"><img src="img/view.png"></a>
-                            <a style="margin-left:0.25em" class="btn btn-danger" href="/deleteEmp/@php echo $id; @endphp"
+                            <a style="margin-left:0.25em" class="btn btn-danger" href="/del/@php echo $id; @endphp"
                                 title="Eliminar"><img src="img/delete.png"></a>
                         </td>
                     </tr>
@@ -121,45 +87,35 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                    <th>Departamento</th>
                     <th>Opciones</th>
                 </thead>
                 <tbody>
                     @php
                     foreach ($busqueda as $info) {
-                        $id = $info->idEmpleado;
-                        $name = $info->NomEmp;
-                        $apellido = $info->ApellEmp;
-                        $correo = $info->Correo;
-                        $telefono = $info->Telefono;
-                        $dpto = $info->idDepartamento;
-                        $departamentoTable = DB::table("departamentos")->where("idDepartamento", $dpto)->get();
-                        foreach ($departamentoTable as $infoDep) {
-                            $idDep = $infoDep->idDepartamento;
-                            $nameDep = $infoDep->NomDepartamento;
-                        }
+                    $id = $info->id;
+                    $name = $info->name;
+                    $apellido = $info->apellido;
                     @endphp
                     <tr>
                         <td>@php echo $id; @endphp</td>
                         <td>@php echo $name; @endphp</td>
                         <td>@php echo $apellido; @endphp</td>
-                        <td>@php echo $correo; @endphp</td>
-                        <td>@php echo $telefono; @endphp</td>
-                        <td>@php echo $nameDep; @endphp</td>
                         <td><a style="margin-right:0.25em" class="btn btn-info"
-                                href="/editEmp/@php echo $id; @endphp" title="Editar"><img src="img/edit.png"></a>
-                            <a class="btn btn-warning" href="/viewEmp/@php echo $id; @endphp" target="_blank"
-                                title="Ver"><img src="img/view.png"></a>
-                            <a style="margin-left:0.25em" class="btn btn-danger" href="/deleteEmp/@php echo $id; @endphp"
+                                href="/users/@php echo $id; @endphp/edit" title="Editar"><img src="img/edit.png"></a>
+                            <a class="btn btn-warning" href="/users/@php echo $id; @endphp" title="Ver"><img
+                                    src="img/view.png"></a>
+                            <a style="margin-left:0.25em" class="btn btn-danger" href="/@php echo $id; @endphp/delete"
                                 title="Eliminar"><img src="img/delete.png"></a>
                         </td>
                     </tr>
                     @php } @endphp
                 </tbody>
             </table>
-    
+            @php } else if (isset($wasDeleted) == true) { @endphp
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                El usuario ha sido eliminado
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             @php } else {
             echo("no hay nada");
             }
@@ -174,7 +130,7 @@
                         <h5 class="modal-title" id="nuevoEmpleadoLabel">Nuevo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form name="frm_nuevo_empleado" action="{{url('/nuevoEmpleado')}}" method="post">
+                    <form name="frm_nuevo_empleado" aaction="{{url('/nuevo')}}" method="post">
                         <div class="modal-body">
                             @csrf
                             <div class="row">
@@ -199,33 +155,31 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    @php if (isset($departamentosTable)) { @endphp
+                                    @php if (isset($departmentosTable)) { @endphp
                                     <label name="lbl_departamento">Departamento</label>
-                                    <select class="form-control" name="opt_departamento">
-                                        @php foreach ($departamentosTable as $info) {
+                                    <select name="opt_departamento">
+                                        @php foreach ($departmentosTable as $info) {
                                             $id = $info->idDepartamento;
                                             $name = $info->NomDepartamento;
                                         @endphp
-                                        <option name="@php echo $id; @endphp" value="@php echo $id; @endphp">@php echo $name; @endphp</option>
+                                        <option name="@php echo $id; @endphp">@php echo $name; @endphp</option>
                                         @php } @endphp
                                         
                                     </select>
-                                    @php } else {
-                                         echo "No se pudo";
-                                    } @endphp
+                                    @php } else {} @endphp
+                                    <input type="number" class="form-control" name="txt_departamento" required><br>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</button>
-                            <input type="submit" class="btn btn-primary" name="btn_create_empleado" value="Crear">
+                            <input type="submit" class="btn btn-primary">Crear</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
